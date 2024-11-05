@@ -1,10 +1,11 @@
 MovieInsight is a simple Node.js and Express-based application that allows users to manage a collection of movies stored in a JSON file. With this tool, users can add, delete, search, and update movie information and check existing ratings of movies.
 
-Features
-Add a New Movie: Easily add new movies to the collection with relevant details like title, year, and rating.
-Delete a Movie: Remove a movie from the collection by its unique identifier.
-Search for a Movie's Rating: Look up a movie and view its rating and details.
-Update Movie Details: Update information about an existing movie in the collection.
+Features:-
+
+1.Add a New Movie: Easily add new movies to the collection with relevant details like title, year, and rating.
+2.Delete a Movie: Remove a movie from the collection by its unique identifier.
+3.Search for a Movie's Rating: Look up a movie and view its rating and details.
+4.Update Movie Details: Update information about an existing movie in the collection.
 
 Installation:-
 
