@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MovieApp</title>
+  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>List Of Movies</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Rating</th>
+        </tr>
+      </thead>
+      <tbody id="movieList"></tbody>
+    </table>
+    <button type="button" class="btn btn-primary">
+      <a href="/addmovie.html" target="_blank" style="color: inherit; text-decoration: none;">Add Movie</a>
+    </button>
+    <button type="button" class="btn btn-primary">
+      <a href="/search.html" target="_blank" style="color: inherit; text-decoration: none;">Search Movie</a>
+    </button>
+    <button type="button" class="btn btn-primary">
+      <a href="/updatemovie.html" target="_blank" style="color: inherit; text-decoration: none;">Update Movie</a>
+    </button>
+    <button type="button" class="btn btn-primary">
+      <a href="/deletemovie.html" target="_blank" style="color: inherit; text-decoration: none;">Delete Movie</a>
+    </button>
+  </div>
+
+  
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <script>
+    fetch('/movies')
+      .then(response => response.json())
+      .then(movies => {
+        const movieList = document.getElementById('movieList');
+        movies.forEach(movie => {
+          const row = document.createElement('tr');
+          row.innerHTML = `<td>${movie.id}</td><td>${movie.title}</td><td>${movie.rating}</td>`;
+          movieList.appendChild(row);
+        });
+      })
+      .catch(error => console.error('Error:', error));
+  </script>
+</body>
+</html>

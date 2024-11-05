@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Update Movie</title>
+  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 400px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Update Movie</h1>
+    <form id="updateMovieForm">
+      <label for="updateId">Movie ID:</label><br>
+      <input type="number" id="updateId" name="updateId" min="1"><br>
+      <label for="updateTitle">New Title:</label><br>
+      <input type="text" id="updateTitle" name="updateTitle"><br>
+      <label for="updateRating">New Rating:</label><br>
+      <input type="number" id="updateRating" name="updateRating" step="0.1" min="0" max="10"><br><br>
+      <input type="submit" value="Update Movie">
+    </form>
+
+    <div id="updateResult"></div>
+    <div id="displayMovie"></div>
+  </div>
+
+  
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <script>
+    document.getElementById('updateMovieForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const updateId = document.getElementById('updateId').value;
+      const updateTitle = document.getElementById('updateTitle').value;
+      const updateRating = document.getElementById('updateRating').value;
+
+      fetch(`/updatemovie/${updateId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `title=${updateTitle}&rating=${updateRating}`
+      })
+      .then(response => {
+        if (response.ok) {
+          document.getElementById('updateResult').textContent = 'Movie updated successfully';
+          return response.json();
+        } else {
+          document.getElementById('updateResult').textContent = 'Movie not found';
+          throw new Error('Movie not found');
+        }
+      })
+      .then(movie => {
+        document.getElementById('displayMovie').textContent = `Updated Movie - ID: ${movie.id}, Title: ${movie.title}, Rating: ${movie.rating}`;
+      })
+      .catch(error => console.error('Error:', error));
+    });
+  </script>
+</body>
+</html>
